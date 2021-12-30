@@ -1,4 +1,4 @@
-oclif-hello-world
+# nft-minting
 =================
 
 oclif example Hello World CLI

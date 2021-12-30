@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "importHelpers": true,
+    "allowUnreachableCode": false,
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "alwaysStrict": true,
+    "module": "commonjs",
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true,
+    "composite": true,
+    "target": "es2019"
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
