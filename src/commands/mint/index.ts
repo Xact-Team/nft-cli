@@ -1,15 +1,23 @@
 import { Command, Flags } from '@oclif/core';
 import { CLIError } from '@oclif/errors';
-// import { HederaEnvironment, ClientNFT } from '@xact-wallet-sdk/nft';
-// eslint-disable-next-line node/no-missing-import
-import * as fs from 'node:fs';
-// eslint-disable-next-line node/no-missing-import
-import * as path from 'node:path';
+// import {
+//   ClientNFT,
+//   HederaEnvironment,
+//   DebugLevel,
+//   CustomFee,
+//   NFT,
+//   CategoryNFT,
+//   HederaAccount,
+// } from '@xact-wallet-sdk/nft';
+import * as fs from 'fs';
+import path from 'path';
+
+// import { getConfig } from '../../core/config';
 
 const allowedExtensions = new Set(['.json', '.png', '.jpeg', '.jpg']);
 
 interface NFTContent {
-  json: string;
+  json: Record<string, any>;
   base64: string;
 }
 
@@ -23,30 +31,17 @@ hello friend from oclif! (./src/commands/hello/index.ts)
   ];
 
   static flags = {
-    // accountId: Flags.string({
-    //   char: 'a',
-    //   description: 'Your accoundId',
-    //   required: true,
-    // }),
-    // privateKey: Flags.string({
-    //   char: 'p',
-    //   description: 'Your privateKey',
-    //   required: true,
-    // }),
-    // storageKey: Flags.string({
-    //   char: 's',
-    //   description: 'Your client storage api key',
-    //   required: true,
-    // }),
+    config: Flags.string({
+      char: 'c',
+      description: 'Path of your config file',
+      default: `${process.cwd()}/config.json`,
+      required: false,
+    }),
     from: Flags.string({
       char: 'f',
       description: "Path from which you want to create your NFT's",
+      default: process.cwd(),
       required: true,
-    }),
-    environment: Flags.string({
-      char: 'e',
-      description: 'Environment mainnet or testnet',
-      required: false,
     }),
   };
 
@@ -67,27 +62,56 @@ hello friend from oclif! (./src/commands/hello/index.ts)
     }
   }
 
-  async mint(): Promise<void> {
-    // const hederaAccount = {
-    //   accountId: 'YOUR_ACCOUNTID',
-    //   privateKey: 'YOUR_PRIVATEKEY',
-    //   environment: HederaEnvironment.TESTNET /* Default to MAINNET */,
-    // };
-    // /* Construct an instance of Client */
-    // const client = new ClientNFT({
-    //   hederaAccount,
-    //   nftStorageApiKey: 'YOUR_TOKEN',
-    // });
-  }
+  // async mint(
+  //   client: ClientNFT,
+  //   nftContents: NFTContent[],
+  //   creator: string,
+  // ): Promise<void> {
+  //   /* Create NFT with multiple metadata under one token */
+  //   const name = 'NFT Test';
+  //   const customRoyaltyFee: CustomFee[] = [
+  //     {
+  //       numerator: 1,
+  //       denominator: 10,
+  //       fallbackFee: 100,
+  //       collectorAccountId: '0.0.123456',
+  //     },
+  //   ];
+  //   const nfts = nftContents.map(
+  //     (nftContent) =>
+  //       ({
+  //         name: nftContent.json.name,
+  //         description: nftContent.json.description,
+  //         category: CategoryNFT.ART,
+  //         creator: 'Johny.B',
+  //         attributes: nftContent.json.attributes ?? null,
+  //         customProperties: null,
+  //         media: nftContent.base64,
+  //       } as NFT),
+  //   );
+
+  //   await client.createAndMint({ name, customRoyaltyFee, nfts });
+  // }
 
   async run(): Promise<void> {
     const { flags } = await this.parse(Mint);
+
+    // const config = await getConfig(flags.config);
 
     const isDirectory = fs.lstatSync(flags.from).isDirectory();
 
     if (!isDirectory) {
       throw new CLIError('The given path is not a directory');
     }
+
+    console.log('CONFIG:', flags.config);
+
+    // Create client
+    // const client = new ClientNFT({
+    //   hederaAccount: config.hederaAccount,
+    //   nftStorageApiKey: config.nftStorageApiKey,
+    //   debugLevel: DebugLevel.WARN,
+    // });
 
     const filePaths = await fs.promises.readdir(flags.from);
     // Extract file by pair json and image
@@ -131,11 +155,9 @@ hello friend from oclif! (./src/commands/hello/index.ts)
       }),
     );
 
-    const nftContents = await promises;
+    await promises;
 
-    console.log('CONTENT:', nftContents);
-
-    // await this.mint(nftContents);
+    // await this.mint(client, nftContents, flags.creator);
 
     // this.log(`path is from ${flags.from}! (./src/commands/mint/index.ts)`);
   }

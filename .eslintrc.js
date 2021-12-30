@@ -10,5 +10,7 @@ module.exports = {
     jest: true,
   },
   ignorePatterns: ['.eslintrc.js'],
-  rules: {},
+  rules: {
+    'unicorn/prefer-node-protocol': 'off',
+  },
 };
