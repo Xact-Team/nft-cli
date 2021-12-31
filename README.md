@@ -18,7 +18,7 @@ $ npm install -g @xact-wallet-sdk/nft-cli
 $ nft COMMAND
 running command...
 $ nft (--version)
-@xact-wallet-sdk/nft-cli/0.0.1 darwin-arm64 node-v14.18.1
+@xact-wallet-sdk/nft-cli/0.0.2 darwin-arm64 node-v14.18.1
 $ nft --help [COMMAND]
 USAGE
   $ nft COMMAND
@@ -104,5 +104,5 @@ EXAMPLES
         ...
 ```
 
-_See code: [dist/commands/mint/index.ts](https://github.com/git@github.com:Xact-Team/nft-cli.git/nft-cli/blob/v0.0.1/dist/commands/mint/index.ts)_
+_See code: [dist/commands/mint/index.ts](https://github.com/git@github.com:Xact-Team/nft-cli.git/nft-cli/blob/v0.0.2/dist/commands/mint/index.ts)_
 <!-- commandsstop -->
