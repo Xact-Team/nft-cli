@@ -2,7 +2,7 @@
   "private": false,
   "name": "@xact-wallet-sdk/nft-cli",
   "description": "This CLI allow you to mint your NFT's ",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Xact-Team",
   "bin": {
     "nft": "bin/run"
