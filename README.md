@@ -1,10 +1,10 @@
 # nft-minting
 
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://github.com/Xact-Team/nft-cli)
-[![Version](https://img.shields.io/npm/v/oclif-hello-world.svg)](https://npmjs.org/package/oclif-hello-world)
-[![CircleCI](https://circleci.com/gh/oclif/hello-world/tree/main.svg?style=shield)](https://circleci.com/gh/oclif/hello-world/tree/main)
-[![Downloads/week](https://img.shields.io/npm/dw/oclif-hello-world.svg)](https://npmjs.org/package/oclif-hello-world)
-[![License](https://img.shields.io/npm/l/oclif-hello-world.svg)](https://github.com/oclif/hello-world/blob/main/package.json)
+[![nft](https://img.shields.io/badge/cli-nft-brightgreen.svg)](https://github.com/Xact-Team/nft-cli)
+[![Version](https://img.shields.io/npm/v/@xact-wallet-sdk/nft-cli.svg)](https://www.npmjs.com/package/@xact-wallet-sdk/nft-cli)
+[![CircleCI](https://circleci.com/gh/Xact-Team/nft-cli/tree/main.svg?style=shield)](https://circleci.com/gh/Xact-Team/nft-cli/tree/main)
+[![Downloads/week](https://img.shields.io/npm/dw/@xact-wallet-sdk/nft-cli.svg)](hhttps://www.npmjs.com/package/@xact-wallet-sdk/nft-cli)
+[![License](https://img.shields.io/npm/l/@xact-wallet-sdk/nft-cli.svg)](https://github.com/Xact-Team/nft-cli/blob/main/LICENSE)
 
 <!-- toc -->
 * [nft-minting](#nft-minting)
