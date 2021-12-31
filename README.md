@@ -14,11 +14,11 @@
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g nft-cli
+$ npm install -g @xact-wallet-sdk/nft-cli
 $ nft COMMAND
 running command...
 $ nft (--version)
-nft-cli/0.0.1 darwin-arm64 node-v14.18.1
+@xact-wallet-sdk/nft-cli/0.0.1 darwin-arm64 node-v14.18.1
 $ nft --help [COMMAND]
 USAGE
   $ nft COMMAND
