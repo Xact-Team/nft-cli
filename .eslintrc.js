@@ -12,5 +12,6 @@ module.exports = {
   ignorePatterns: ['.eslintrc.js'],
   rules: {
     'unicorn/prefer-node-protocol': 'off',
+    'unicorn/no-array-callback-reference': 'off',
   },
 };

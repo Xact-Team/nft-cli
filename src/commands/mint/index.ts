@@ -1,46 +1,16 @@
 import { Command, Flags } from '@oclif/core';
 import { CLIError } from '@oclif/errors';
+import { ValidationError } from 'class-validator';
 import * as fs from 'fs';
 import 'reflect-metadata';
 
 import { getConfiguration } from '../../core/configuration';
 import { readFiles } from '../../core/nft/read-files';
 import { mintMultiMetadata } from '../../core/nft/mint-multi-metadata';
-import { ValidationError } from 'class-validator';
-
-function formatErrors(validationErrors: ValidationError[]): {
-  message: string;
-  suggestions: string[];
-} {
-  const messages: string[] = [];
-  const suggestions: string[] = [];
-
-  for (const error of validationErrors) {
-    messages.push(`\`${error.property}\` contain errors.`);
-
-    console.log('ERR:', error);
-
-    if (error.children && error.children.length > 0) {
-      const res = formatErrors(error.children);
-
-      console.log('RES:', res);
-      messages.push(res.message);
-      suggestions.push(...res.suggestions);
-    } else {
-      console.log('constraints:', error.constraints);
-      for (const constraint in error.constraints) {
-        // eslint-disable-next-line no-prototype-builtins
-        if (!error.constraints.hasOwnProperty(constraint)) {
-          continue;
-        }
-
-        suggestions.push(error.constraints[constraint]);
-      }
-    }
-  }
-
-  return { message: messages.join('\n'), suggestions };
-}
+import {
+  formatValidationErrors,
+  instanceOfValidationErrors,
+} from '../../utils/error/validation-error';
 
 export default class Mint extends Command {
   static description = "Mint your NFT's";
@@ -68,15 +38,12 @@ export default class Mint extends Command {
 
   static args = [];
 
-  async catch(error: Error & { code: string }): Promise<void> {
-    console.log('ERROR:', error);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    if (error.length > 0) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const { message, suggestions } = formatErrors(error);
-      console.log(message, suggestions);
+  async catch(
+    error: (Error & { code: string }) | ValidationError[],
+  ): Promise<void> {
+    if (instanceOfValidationErrors(error)) {
+      const { message, suggestions } = formatValidationErrors(error);
+
       this.error(message, {
         code: 'ValidationError',
         exit: 3,
