@@ -1,15 +1,13 @@
-oclif-hello-world
-=================
+# nft-minting
 
-oclif example Hello World CLI
-
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
+[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://github.com/Xact-Team/nft-cli)
 [![Version](https://img.shields.io/npm/v/oclif-hello-world.svg)](https://npmjs.org/package/oclif-hello-world)
 [![CircleCI](https://circleci.com/gh/oclif/hello-world/tree/main.svg?style=shield)](https://circleci.com/gh/oclif/hello-world/tree/main)
 [![Downloads/week](https://img.shields.io/npm/dw/oclif-hello-world.svg)](https://npmjs.org/package/oclif-hello-world)
 [![License](https://img.shields.io/npm/l/oclif-hello-world.svg)](https://github.com/oclif/hello-world/blob/main/package.json)
 
 <!-- toc -->
+* [nft-minting](#nft-minting)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
@@ -20,7 +18,7 @@ $ npm install -g nft-cli
 $ nft COMMAND
 running command...
 $ nft (--version)
-nft-cli/0.0.0 darwin-arm64 node-v14.18.1
+nft-cli/0.0.1 darwin-arm64 node-v14.18.1
 $ nft --help [COMMAND]
 USAGE
   $ nft COMMAND
@@ -29,13 +27,38 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`nft commands`](#nft-commands)
 * [`nft help [COMMAND]`](#nft-help-command)
-* [`nft plugins`](#nft-plugins)
-* [`nft plugins:inspect PLUGIN...`](#nft-pluginsinspect-plugin)
-* [`nft plugins:install PLUGIN...`](#nft-pluginsinstall-plugin)
-* [`nft plugins:link PLUGIN`](#nft-pluginslink-plugin)
-* [`nft plugins:uninstall PLUGIN...`](#nft-pluginsuninstall-plugin)
-* [`nft plugins update`](#nft-plugins-update)
+* [`nft mint`](#nft-mint)
+
+## `nft commands`
+
+list all the commands
+
+```
+USAGE
+  $ nft commands [-h] [-j] [--hidden] [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
+    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+
+FLAGS
+  -h, --help         Show CLI help.
+  -j, --json         display unfiltered api data in json format
+  -x, --extended     show extra columns
+  --columns=<value>  only show provided columns (comma-separated)
+  --csv              output is csv format [alias: --output=csv]
+  --filter=<value>   filter property by partial string matching, ex: name=foo
+  --hidden           show hidden commands
+  --no-header        hide table header from output
+  --no-truncate      do not truncate output to fit screen
+  --output=<option>  output in a more machine friendly format
+                     <options: csv|json|yaml>
+  --sort=<value>     property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  list all the commands
+```
+
+_See code: [@oclif/plugin-commands](https://github.com/oclif/plugin-commands/blob/v2.0.1/src/commands/commands.ts)_
 
 ## `nft help [COMMAND]`
 
@@ -57,149 +80,29 @@ DESCRIPTION
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.10/src/commands/help.ts)_
 
-## `nft plugins`
+## `nft mint`
 
-List installed plugins.
+Mint your NFT's
 
 ```
 USAGE
-  $ nft plugins [--core]
+  $ nft mint -f <value> [-c <value>]
 
 FLAGS
-  --core  Show core plugins.
+  -c, --config=<value>  [default: /Users/magrin_j/Work/Xact/nft-cli/config.json] Path of your config file
+  -f, --from=<value>    (required) Path from which you want to create your NFT's
 
 DESCRIPTION
-  List installed plugins.
+  Mint your NFT's
 
 EXAMPLES
-  $ nft plugins
+  $ nft mint -c sample.config.json -f ~/Downloads/nfts
+        Checking your configuration...
+        Checking if the path is a directory...
+        Reading the content of all the paired files...
+        Running minting of your directory...
+        ...
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.0.11/src/commands/plugins/index.ts)_
-
-## `nft plugins:inspect PLUGIN...`
-
-Displays installation properties of a plugin.
-
-```
-USAGE
-  $ nft plugins:inspect PLUGIN...
-
-ARGUMENTS
-  PLUGIN  [default: .] Plugin to inspect.
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Displays installation properties of a plugin.
-
-EXAMPLES
-  $ nft plugins:inspect myplugin
-```
-
-## `nft plugins:install PLUGIN...`
-
-Installs a plugin into the CLI.
-
-```
-USAGE
-  $ nft plugins:install PLUGIN...
-
-ARGUMENTS
-  PLUGIN  Plugin to install.
-
-FLAGS
-  -f, --force    Run yarn install with force flag.
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Installs a plugin into the CLI.
-
-  Can be installed from npm or a git url.
-
-  Installation of a user-installed plugin will override a core plugin.
-
-  e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
-  will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
-  the CLI without the need to patch and update the whole CLI.
-
-ALIASES
-  $ nft plugins add
-
-EXAMPLES
-  $ nft plugins:install myplugin 
-
-  $ nft plugins:install https://github.com/someuser/someplugin
-
-  $ nft plugins:install someuser/someplugin
-```
-
-## `nft plugins:link PLUGIN`
-
-Links a plugin into the CLI for development.
-
-```
-USAGE
-  $ nft plugins:link PLUGIN
-
-ARGUMENTS
-  PATH  [default: .] path to plugin
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Links a plugin into the CLI for development.
-
-  Installation of a linked plugin will override a user-installed or core plugin.
-
-  e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello'
-  command will override the user-installed or core plugin implementation. This is useful for development work.
-
-EXAMPLES
-  $ nft plugins:link myplugin
-```
-
-## `nft plugins:uninstall PLUGIN...`
-
-Removes a plugin from the CLI.
-
-```
-USAGE
-  $ nft plugins:uninstall PLUGIN...
-
-ARGUMENTS
-  PLUGIN  plugin to uninstall
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Removes a plugin from the CLI.
-
-ALIASES
-  $ nft plugins unlink
-  $ nft plugins remove
-```
-
-## `nft plugins update`
-
-Update installed plugins.
-
-```
-USAGE
-  $ nft plugins update [-h] [-v]
-
-FLAGS
-  -h, --help     Show CLI help.
-  -v, --verbose
-
-DESCRIPTION
-  Update installed plugins.
-```
+_See code: [dist/commands/mint/index.ts](https://github.com/git@github.com:Xact-Team/nft-cli.git/nft-cli/blob/v0.0.1/dist/commands/mint/index.ts)_
 <!-- commandsstop -->
