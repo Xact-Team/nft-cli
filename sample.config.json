@@ -1,4 +1,14 @@
 {
-  "accountId": "",
-  "privateKey": ""
+  "nftStorageApiKey": "",
+  "hederaAccount": {
+    "accountId": "",
+    "privateKey": "",
+    "environment": ""
+  },
+  "metadata": {
+    "name": "",
+    "symbol": "",
+    "category": "",
+    "creator": ""
+  }
 }

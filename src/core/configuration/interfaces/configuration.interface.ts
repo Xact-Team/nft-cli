@@ -4,6 +4,7 @@ import {
   CustomFee,
   HederaEnvironment,
 } from '@xact-wallet-sdk/nft';
+import { Type } from 'class-transformer';
 import {
   IsString,
   IsEnum,
@@ -11,7 +12,10 @@ import {
   ValidateNested,
   IsObject,
   IsArray,
+  IsOptional,
 } from 'class-validator';
+
+import { Default } from '../../../utils/decotarors/default';
 
 export class HederaAccount {
   @IsString()
@@ -27,13 +31,17 @@ export class HederaAccount {
   environment: HederaEnvironment;
 }
 
-export class NftData {
+export class Metadata {
   @IsString()
   @IsNotEmpty()
   name: string;
 
+  @IsString()
+  @Default('')
+  symbol: string;
+
   @IsEnum(CategoryNFT)
-  @IsNotEmpty()
+  @Default(CategoryNFT.ART)
   category: CategoryNFT;
 
   @IsString()
@@ -41,19 +49,24 @@ export class NftData {
   creator: string;
 
   @IsArray()
+  @IsOptional()
   customRoyaltyFee?: CustomFee[] | null;
 
   @IsObject()
+  @IsOptional()
   customProperties?: Record<string, unknown> | null;
 }
 
-export class Config {
-  @ValidateNested({ each: true })
-  hederaAccount: HederaAccount;
-
+export class Configuration {
   @IsString()
+  @IsNotEmpty()
   nftStorageApiKey: string;
 
   @ValidateNested({ each: true })
-  nftData: NftData;
+  @Type(() => HederaAccount)
+  hederaAccount: HederaAccount;
+
+  @ValidateNested({ each: true })
+  @Type(() => Metadata)
+  metadata: Metadata;
 }
