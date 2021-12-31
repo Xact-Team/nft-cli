@@ -1,0 +1,14 @@
+{
+  "nftStorageApiKey": "YOUR_STORAGE_API_KEY",
+  "hederaAccount": {
+    "accountId": "0.0.12345678",
+    "privateKey": "YOUR_PRIVATE_KEY",
+    "environment": "testnet"
+  },
+  "metadata": {
+    "name": "TOKEN_NAME",
+    "symbol": "TOKEN_SYMBOL",
+    "category": "Art",
+    "creator": "TOKEN_CREATOR"
+  }
+}

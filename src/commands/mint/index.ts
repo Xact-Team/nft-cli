@@ -85,6 +85,11 @@ export default class Mint extends Command {
 
     const nftFileContents = await readFiles(flags.from);
 
+    if (nftFileContents.length === 0) {
+      this.log("Can't find any paired file in the provided folder.");
+      return;
+    }
+
     this.log('Running minting of your directory...');
 
     await mintMultiMetadata(configuration, nftFileContents);
