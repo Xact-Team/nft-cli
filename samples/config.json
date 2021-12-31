@@ -9,6 +9,14 @@
     "name": "TOKEN_NAME",
     "symbol": "TOKEN_SYMBOL",
     "category": "Art",
-    "creator": "TOKEN_CREATOR"
+    "creator": "TOKEN_CREATOR",
+    "customRoyaltyFee": [
+      {
+        "collectorAccountId": "0.0.12345678",
+        "fallbackFee": 100,
+        "numerator": 10,
+        "denominator": 100
+      }
+    ]
   }
 }

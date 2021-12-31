@@ -1,9 +1,5 @@
 /* eslint-disable new-cap */
-import {
-  CategoryNFT,
-  CustomFee,
-  HederaEnvironment,
-} from '@xact-wallet-sdk/nft';
+import { CategoryNFT, HederaEnvironment } from '@xact-wallet-sdk/nft';
 import { Type } from 'class-transformer';
 import {
   IsString,
@@ -13,6 +9,7 @@ import {
   IsObject,
   IsArray,
   IsOptional,
+  IsNumber,
 } from 'class-validator';
 
 import { Default } from '../../../utils/decotarors/default';
@@ -29,6 +26,24 @@ export class HederaAccount {
   @IsEnum(HederaEnvironment)
   @IsNotEmpty()
   environment: HederaEnvironment;
+}
+
+export class CustomFee {
+  @IsNumber()
+  @IsNotEmpty()
+  numerator: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  denominator: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  fallbackFee: number;
+
+  @IsString()
+  @IsNotEmpty()
+  collectorAccountId: string;
 }
 
 export class Metadata {
@@ -48,7 +63,9 @@ export class Metadata {
   @IsNotEmpty()
   creator: string;
 
+  @ValidateNested({ each: true })
   @IsArray()
+  @Type(() => CustomFee)
   @IsOptional()
   customRoyaltyFee?: CustomFee[] | null;
 

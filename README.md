@@ -10,6 +10,7 @@
 * [nft-minting](#nft-minting)
 * [Usage](#usage)
 * [Config file](#config-file)
+* [Example of how to use](#example-of-how-to-use)
 * [Commands](#commands)
 <!-- tocstop -->
 # Usage
@@ -19,7 +20,7 @@ $ npm install -g @xact-wallet-sdk/nft-cli
 $ nft COMMAND
 running command...
 $ nft (--version)
-@xact-wallet-sdk/nft-cli/0.0.3 darwin-arm64 node-v14.18.1
+@xact-wallet-sdk/nft-cli/0.0.4 darwin-arm64 node-v14.18.1
 $ nft --help [COMMAND]
 USAGE
   $ nft COMMAND
@@ -39,9 +40,20 @@ The configuration file provided to mint command should looks like this:
     "privateKey": "YOUR_PRIVATE_KEY",
     "environment": "testnet"
   },
+  // Only needed for mint-multiple command
   "metadata": {
+    // The following will be applied to the token
     "name": "TOKEN_NAME",
     "symbol": "TOKEN_SYMBOL",
+        "customRoyaltyFee": [
+      {
+        "collectorAccountId": "0.0.12345678",
+        "fallbackFee": 100,
+        "numerator": 10,
+        "denominator": 100
+      }
+    ],
+    // The following will be applied to the nft
     "category": "Art",
     "creator": "TOKEN_CREATOR"
   }
@@ -49,6 +61,18 @@ The configuration file provided to mint command should looks like this:
 ```
 
 To pass this file to your command use `--config` option.
+
+# Example of how to use
+
+1. Create a folder `mint` with a `config.json` file inside and your output folder from hashlips
+2. Move into your folder `mint`
+```shell
+$ cd mint
+```
+3. Run `mint-multiple` command:
+```shell
+$ nft mint-multiple --from ./output
+```
 
 # Commands
 <!-- commands -->
@@ -130,7 +154,7 @@ EXAMPLES
         ...
 ```
 
-_See code: [dist/commands/mint-multiple/index.ts](https://github.com/git@github.com:Xact-Team/nft-cli.git/nft-cli/blob/v0.0.3/dist/commands/mint-multiple/index.ts)_
+_See code: [dist/commands/mint-multiple/index.ts](https://github.com/git@github.com:Xact-Team/nft-cli.git/nft-cli/blob/v0.0.4/dist/commands/mint-multiple/index.ts)_
 
 ## `nft mint-single`
 
@@ -158,5 +182,5 @@ EXAMPLES
         ...
 ```
 
-_See code: [dist/commands/mint-single/index.ts](https://github.com/git@github.com:Xact-Team/nft-cli.git/nft-cli/blob/v0.0.3/dist/commands/mint-single/index.ts)_
+_See code: [dist/commands/mint-single/index.ts](https://github.com/git@github.com:Xact-Team/nft-cli.git/nft-cli/blob/v0.0.4/dist/commands/mint-single/index.ts)_
 <!-- commandsstop -->
