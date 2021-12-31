@@ -7,17 +7,18 @@
 [![License](https://img.shields.io/npm/l/oclif-hello-world.svg)](https://github.com/oclif/hello-world/blob/main/package.json)
 
 <!-- toc -->
+* [nft-minting](#nft-minting)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
 # Usage
 <!-- usage -->
-```shell
-$ yarn global add nft-cli # or npm install -g nft-cli
+```sh-session
+$ npm install -g nft-cli
 $ nft COMMAND
 running command...
 $ nft (--version)
-nft-cli/0.0.0 darwin-arm64 node-v14.18.1
+nft-cli/0.0.1 darwin-arm64 node-v14.18.1
 $ nft --help [COMMAND]
 USAGE
   $ nft COMMAND
@@ -26,15 +27,44 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`nft help [COMMAND]`](#nft-help-command)
 * [`nft commands`](#nft-commands)
+* [`nft help [COMMAND]`](#nft-help-command)
 * [`nft mint`](#nft-mint)
+
+## `nft commands`
+
+list all the commands
+
+```
+USAGE
+  $ nft commands [-h] [-j] [--hidden] [--columns <value> | -x] [--sort <value>] [--filter <value>] [--output
+    csv|json|yaml |  | [--csv | --no-truncate]] [--no-header | ]
+
+FLAGS
+  -h, --help         Show CLI help.
+  -j, --json         display unfiltered api data in json format
+  -x, --extended     show extra columns
+  --columns=<value>  only show provided columns (comma-separated)
+  --csv              output is csv format [alias: --output=csv]
+  --filter=<value>   filter property by partial string matching, ex: name=foo
+  --hidden           show hidden commands
+  --no-header        hide table header from output
+  --no-truncate      do not truncate output to fit screen
+  --output=<option>  output in a more machine friendly format
+                     <options: csv|json|yaml>
+  --sort=<value>     property to sort by (prepend '-' for descending)
+
+DESCRIPTION
+  list all the commands
+```
+
+_See code: [@oclif/plugin-commands](https://github.com/oclif/plugin-commands/blob/v2.0.1/src/commands/commands.ts)_
 
 ## `nft help [COMMAND]`
 
-Display help for one command.
+Display help for nft.
 
-```shell
+```
 USAGE
   $ nft help [COMMAND] [-n]
 
@@ -48,25 +78,13 @@ DESCRIPTION
   Display help for nft.
 ```
 
-## `nft commands`
-
-List all available commmands
-
-```shell
- Command  Summary
- ──────── ─────────────────────
- commands list all the commands
- help     Display help for nft.
- mint     Mint your NFT's
-```
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.10/src/commands/help.ts)_
 
 ## `nft mint`
 
-Allow you to mint all your NFT's from a folder
-
-```shell
 Mint your NFT's
 
+```
 USAGE
   $ nft mint -f <value> [-c <value>]
 
@@ -85,4 +103,6 @@ EXAMPLES
         Running minting of your directory...
         ...
 ```
+
+_See code: [dist/commands/mint/index.ts](https://github.com/git@github.com:Xact-Team/nft-cli.git/nft-cli/blob/v0.0.1/dist/commands/mint/index.ts)_
 <!-- commandsstop -->
