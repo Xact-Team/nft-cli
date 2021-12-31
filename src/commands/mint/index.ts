@@ -16,8 +16,12 @@ export default class Mint extends Command {
   static description = "Mint your NFT's";
 
   static examples = [
-    `$ oex hello friend --from oclif
-      hello friend from oclif! (./src/commands/hello/index.ts)
+    `$ nft mint -c sample.config.json -f ~/Downloads/nfts
+      Checking your configuration...
+      Checking if the path is a directory...
+      Reading the content of all the paired files...
+      Running minting of your directory...
+      ...
     `,
   ];
 
@@ -31,7 +35,6 @@ export default class Mint extends Command {
     from: Flags.string({
       char: 'f',
       description: "Path from which you want to create your NFT's",
-      default: process.cwd(),
       required: true,
     }),
   };
@@ -70,7 +73,7 @@ export default class Mint extends Command {
 
     const configuration = await getConfiguration(flags.config);
 
-    this.log('Checking if the path is a directory');
+    this.log('Checking if the path is a directory...');
 
     const isDirectory = fs.lstatSync(flags.from).isDirectory();
 
