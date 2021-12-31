@@ -7,15 +7,11 @@
 [![License](https://img.shields.io/npm/l/@xact-wallet-sdk/nft-cli.svg)](https://github.com/Xact-Team/nft-cli/blob/main/LICENSE)
 
 <!-- toc -->
-- [nft-minting](#nft-minting)
-- [Usage](#usage)
-- [Config file](#config-file)
-- [Example of how to use](#example-of-how-to-use)
-- [Commands](#commands)
-  - [`nft commands`](#nft-commands)
-  - [`nft help [COMMAND]`](#nft-help-command)
-  - [`nft mint-multiple`](#nft-mint-multiple)
-  - [`nft mint-single`](#nft-mint-single)
+* [nft-minting](#nft-minting)
+* [Usage](#usage)
+* [Config file](#config-file)
+* [Example of how to use](#example-of-how-to-use)
+* [Commands](#commands)
 <!-- tocstop -->
 # Usage
 <!-- usage -->
@@ -80,15 +76,10 @@ $ nft mint-multiple --from ./output
 
 # Commands
 <!-- commands -->
-- [nft-minting](#nft-minting)
-- [Usage](#usage)
-- [Config file](#config-file)
-- [Example of how to use](#example-of-how-to-use)
-- [Commands](#commands)
-  - [`nft commands`](#nft-commands)
-  - [`nft help [COMMAND]`](#nft-help-command)
-  - [`nft mint-multiple`](#nft-mint-multiple)
-  - [`nft mint-single`](#nft-mint-single)
+* [`nft commands`](#nft-commands)
+* [`nft help [COMMAND]`](#nft-help-command)
+* [`nft mint-multiple`](#nft-mint-multiple)
+* [`nft mint-single`](#nft-mint-single)
 
 ## `nft commands`
 
