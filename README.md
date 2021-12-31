@@ -7,10 +7,15 @@
 [![License](https://img.shields.io/npm/l/@xact-wallet-sdk/nft-cli.svg)](https://github.com/Xact-Team/nft-cli/blob/main/LICENSE)
 
 <!-- toc -->
-* [nft-minting](#nft-minting)
-* [Usage](#usage)
-* [Config file](#config-file)
-* [Commands](#commands)
+- [nft-minting](#nft-minting)
+- [Usage](#usage)
+- [Config file](#config-file)
+- [Example of how to use](#example-of-how-to-use)
+- [Commands](#commands)
+  - [`nft commands`](#nft-commands)
+  - [`nft help [COMMAND]`](#nft-help-command)
+  - [`nft mint-multiple`](#nft-mint-multiple)
+  - [`nft mint-single`](#nft-mint-single)
 <!-- tocstop -->
 # Usage
 <!-- usage -->
@@ -39,9 +44,20 @@ The configuration file provided to mint command should looks like this:
     "privateKey": "YOUR_PRIVATE_KEY",
     "environment": "testnet"
   },
+  // Only needed for mint-multiple command
   "metadata": {
+    // The following will be applied to the token
     "name": "TOKEN_NAME",
     "symbol": "TOKEN_SYMBOL",
+        "customRoyaltyFee": [
+      {
+        "collectorAccountId": "0.0.12345678",
+        "fallbackFee": 100,
+        "numerator": 10,
+        "denominator": 100
+      }
+    ],
+    // The following will be applied to the nft
     "category": "Art",
     "creator": "TOKEN_CREATOR"
   }
@@ -50,12 +66,29 @@ The configuration file provided to mint command should looks like this:
 
 To pass this file to your command use `--config` option.
 
+# Example of how to use
+
+1. Create a folder `mint` with a `config.json` file inside and your output folder from hashlips
+2. Move into your folder `mint`
+```shell
+$ cd mint
+```
+3. Run `mint-multiple` command:
+```shell
+$ nft mint-multiple --from ./output
+```
+
 # Commands
 <!-- commands -->
-* [`nft commands`](#nft-commands)
-* [`nft help [COMMAND]`](#nft-help-command)
-* [`nft mint-multiple`](#nft-mint-multiple)
-* [`nft mint-single`](#nft-mint-single)
+- [nft-minting](#nft-minting)
+- [Usage](#usage)
+- [Config file](#config-file)
+- [Example of how to use](#example-of-how-to-use)
+- [Commands](#commands)
+  - [`nft commands`](#nft-commands)
+  - [`nft help [COMMAND]`](#nft-help-command)
+  - [`nft mint-multiple`](#nft-mint-multiple)
+  - [`nft mint-single`](#nft-mint-single)
 
 ## `nft commands`
 

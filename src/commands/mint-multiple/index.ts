@@ -92,6 +92,9 @@ export default class Mint extends Command {
 
     this.log('Running minting of your directory...');
 
-    await mint(configuration, nftFileContents);
+    const res = await mint(configuration, nftFileContents);
+
+    this.log(`Your tokenId is: ${res.tokenId}`);
+    this.log(`Your nftId's are: ${JSON.stringify(res.nftIds)}`);
   }
 }
