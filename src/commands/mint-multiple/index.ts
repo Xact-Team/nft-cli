@@ -1,21 +1,22 @@
 import { Command, Flags } from '@oclif/core';
+import { CLIError } from '@oclif/errors';
 import { ValidationError } from 'class-validator';
 import * as fs from 'fs';
 import 'reflect-metadata';
 
-import { getConfiguration } from '../../../core/configuration';
-import { readNFT } from '../../../core/nft/read-nft';
-import { mint } from '../../../core/nft/mint';
+import { getConfiguration } from '../../core/configuration';
+import { readNFTs } from '../../core/nft/read-nfts';
+import { mint } from '../../core/nft/mint';
 import {
   formatValidationErrors,
   instanceOfValidationErrors,
-} from '../../../utils/error/validation-error';
+} from '../../utils/error/validation-error';
 
 export default class Mint extends Command {
-  static description = "Mint NFT's with single metadata";
+  static description = "Mint NFT's with multiple metadata";
 
   static examples = [
-    `$ nft mint single -c sample.config.json -m ~/Downloads/nft/metadata.json -i ~/Downloads/nft/image.png -s 1500
+    `$ nft mint multiple -c sample.config.json -f ~/Downloads/nfts
       Checking your configuration...
       Checking if the path is a directory...
       Reading the content of all the paired files...
@@ -31,21 +32,10 @@ export default class Mint extends Command {
       default: `${process.cwd()}/config.json`,
       required: false,
     }),
-    metadata: Flags.string({
-      char: 'm',
-      description: 'Path of your json metadata file',
+    from: Flags.string({
+      char: 'f',
+      description: "Path from which you want to create your NFT's",
       required: true,
-    }),
-    image: Flags.string({
-      char: 'i',
-      description: 'Path of your image file',
-      required: true,
-    }),
-    supply: Flags.integer({
-      char: 's',
-      description: 'Amount of supply',
-      default: 1,
-      required: false,
     }),
   };
 
@@ -83,18 +73,25 @@ export default class Mint extends Command {
 
     const configuration = await getConfiguration(flags.config);
 
-    this.log('Checking if your paths...');
+    this.log('Checking if the path is a directory...');
 
-    // Check if files exist
-    fs.lstatSync(flags.metadata).isFile();
-    fs.lstatSync(flags.config).isFile();
+    const isDirectory = fs.lstatSync(flags.from).isDirectory();
 
-    this.log('Reading the content of your files...');
+    if (!isDirectory) {
+      throw new CLIError('The given path is not a directory');
+    }
 
-    const nftFileContents = await readNFT(flags.metadata, flags.image);
+    this.log('Reading the content of all the paired files...');
 
-    this.log('Running minting...');
+    const nftFileContents = await readNFTs(flags.from);
 
-    await mint(configuration, nftFileContents, flags.supply);
+    if (nftFileContents.length === 0) {
+      this.log("Can't find any paired file in the provided folder.");
+      return;
+    }
+
+    this.log('Running minting of your directory...');
+
+    await mint(configuration, nftFileContents);
   }
 }
