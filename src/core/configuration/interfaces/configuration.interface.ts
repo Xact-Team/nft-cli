@@ -64,9 +64,11 @@ export class Configuration {
 
   @ValidateNested({ each: true })
   @Type(() => HederaAccount)
+  @IsNotEmpty()
   hederaAccount: HederaAccount;
 
   @ValidateNested({ each: true })
   @Type(() => Metadata)
-  metadata: Metadata;
+  @IsOptional()
+  metadata?: Metadata;
 }
