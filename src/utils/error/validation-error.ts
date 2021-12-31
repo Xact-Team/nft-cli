@@ -1,12 +1,14 @@
 import { ValidationError } from 'class-validator';
 
 export const instanceOfValidationErrors = (
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   array: any,
 ): array is ValidationError[] => {
   return array?.[0] && instanceOfValidationError(array[0]);
 };
 
 export const instanceOfValidationError = (
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   object: any,
 ): object is ValidationError => {
   return object instanceof ValidationError;

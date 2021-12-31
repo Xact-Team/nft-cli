@@ -1,17 +1,18 @@
+import { Errors } from '@oclif/core';
 import * as fs from 'fs';
 import path from 'path';
 
 import { NFTFileContent } from './interfaces/nft-file-content.interface';
 import { allowedExtensions } from '../../utils/constants';
-import { Errors } from '@oclif/core';
 import { notEmpty } from '../../utils/not-empty';
+import { readNFT } from './read-nft';
 
 interface PairedFile {
-  jsonPath: string | null;
+  metadataPath: string | null;
   imagePath: string | null;
 }
 
-export const readFiles = async (
+export const readNFTs = async (
   directoryPath: string,
 ): Promise<NFTFileContent[]> => {
   const filePaths = await fs.promises.readdir(directoryPath);
@@ -24,11 +25,11 @@ export const readFiles = async (
 
     if (allowedExtensions.has(extension)) {
       if (!acc[basename]) {
-        acc[basename] = { jsonPath: null, imagePath: null };
+        acc[basename] = { metadataPath: null, imagePath: null };
       }
 
       if (extension === '.json') {
-        acc[basename].jsonPath = filePath;
+        acc[basename].metadataPath = filePath;
       } else {
         acc[basename].imagePath = filePath;
       }
@@ -40,33 +41,21 @@ export const readFiles = async (
   // Create promises to read all files
   const promises = Promise.all(
     Object.values(pairedFiles).map(async (file) => {
-      if (!file.imagePath || !file.jsonPath) {
+      if (!file.imagePath || !file.metadataPath) {
         Errors.warn(
           `Corresponding ${
             file.imagePath === null ? '`image`' : '`json`'
           } file is missing for ${
-            file.imagePath ?? file.jsonPath
+            file.imagePath ?? file.metadataPath
           }, this one will be ignored.`,
         );
         return null;
       }
 
-      // Read image base64
-      const imageBase64 = await fs.promises.readFile(
+      return readNFT(
+        `${directoryPath}/${file.metadataPath}`,
         `${directoryPath}/${file.imagePath}`,
-        { encoding: 'base64' },
       );
-      // Read metadata
-      const content = await fs.promises.readFile(
-        `${directoryPath}/${file.jsonPath}`,
-        { encoding: 'utf-8' },
-      );
-      const metadata = JSON.parse(content);
-
-      return {
-        metadata,
-        imageBase64,
-      } as NFTFileContent;
     }),
   );
 

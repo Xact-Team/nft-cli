@@ -5,18 +5,18 @@ import * as fs from 'fs';
 import 'reflect-metadata';
 
 import { getConfiguration } from '../../core/configuration';
-import { readFiles } from '../../core/nft/read-files';
-import { mintMultiMetadata } from '../../core/nft/mint-multi-metadata';
+import { readNFTs } from '../../core/nft/read-nfts';
+import { mint } from '../../core/nft/mint';
 import {
   formatValidationErrors,
   instanceOfValidationErrors,
 } from '../../utils/error/validation-error';
 
 export default class Mint extends Command {
-  static description = "Mint your NFT's";
+  static description = "Mint NFT's with multiple metadata";
 
   static examples = [
-    `$ nft mint -c sample.config.json -f ~/Downloads/nfts
+    `$ nft mint multiple -c sample.config.json -f ~/Downloads/nfts
       Checking your configuration...
       Checking if the path is a directory...
       Reading the content of all the paired files...
@@ -83,10 +83,15 @@ export default class Mint extends Command {
 
     this.log('Reading the content of all the paired files...');
 
-    const nftFileContents = await readFiles(flags.from);
+    const nftFileContents = await readNFTs(flags.from);
+
+    if (nftFileContents.length === 0) {
+      this.log("Can't find any paired file in the provided folder.");
+      return;
+    }
 
     this.log('Running minting of your directory...');
 
-    await mintMultiMetadata(configuration, nftFileContents);
+    await mint(configuration, nftFileContents);
   }
 }
