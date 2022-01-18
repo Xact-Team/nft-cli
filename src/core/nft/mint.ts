@@ -48,7 +48,7 @@ export const mint = async (
             nftContent.metadata.customProperties ??
             configuration.metadata!.customProperties ??
             null,
-          media: nftContent.imageBase64,
+          media: nftContent.media,
         } as NFT),
     );
 
@@ -65,11 +65,15 @@ export const mint = async (
   const description = nftContent.metadata.description;
   const category = nftContent.metadata.category ?? CategoryNFT.ART;
   const attributes = nftContent.metadata.attributes ?? null;
-  const creator = nftContent.metadata.creator;
+  const creator =
+    nftContent.metadata.creator ?? configuration.metadata?.creator;
   const customRoyaltyFee = nftContent.metadata.customRoyaltyFee ?? null;
-  const customProperties = nftContent.metadata.customProperties ?? null;
+  const customProperties =
+    nftContent.metadata.customProperties ??
+    configuration.metadata!.customProperties ??
+    null;
 
-  const media = nftContent.imageBase64;
+  const media = nftContent.media;
 
   return client.createAndMint({
     name,

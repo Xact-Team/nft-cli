@@ -6,9 +6,7 @@ export const readNFT = async (
   metadataPath: string,
   imagePath: string,
 ): Promise<NFTFileContent> => {
-  const imageBase64 = await fs.promises.readFile(imagePath, {
-    encoding: 'base64',
-  });
+  const media = imagePath;
   // Read metadata
   const content = await fs.promises.readFile(metadataPath, {
     encoding: 'utf-8',
@@ -17,6 +15,6 @@ export const readNFT = async (
 
   return {
     metadata,
-    imageBase64,
+    media,
   } as NFTFileContent;
 };
