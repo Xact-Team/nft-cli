@@ -20,7 +20,7 @@ $ npm install -g @xact-wallet-sdk/nft-cli
 $ nft COMMAND
 running command...
 $ nft (--version)
-@xact-wallet-sdk/nft-cli/0.0.5 darwin-x64 node-v12.18.3
+@xact-wallet-sdk/nft-cli/0.0.11 darwin-x64 node-v14.18.1
 $ nft --help [COMMAND]
 USAGE
   $ nft COMMAND
@@ -78,6 +78,8 @@ $ nft mint-multiple --from ./output
 <!-- commands -->
 * [`nft commands`](#nft-commands)
 * [`nft help [COMMAND]`](#nft-help-command)
+* [`nft mint-multiple`](#nft-mint-multiple)
+* [`nft mint-single`](#nft-mint-single)
 
 ## `nft commands`
 
@@ -127,4 +129,58 @@ DESCRIPTION
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.9/src/commands/help.ts)_
+
+## `nft mint-multiple`
+
+Mint NFT's with multiple metadata
+
+```
+USAGE
+  $ nft mint-multiple -f <value> [-c <value>]
+
+FLAGS
+  -c, --config=<value>  [default: /Users/tailorweb./Lab/xact/nft-cli/config.json] Path of your config file
+  -f, --from=<value>    (required) Path from which you want to create your NFT's
+
+DESCRIPTION
+  Mint NFT's with multiple metadata
+
+EXAMPLES
+  $ nft mint multiple -c sample.config.json -f ~/Downloads/nfts
+        Checking your configuration...
+        Checking if the path is a directory...
+        Reading the content of all the paired files...
+        Running minting of your directory...
+        ...
+```
+
+_See code: [dist/commands/mint-multiple/index.ts](https://github.com/git@github.com:Xact-Team/nft-cli.git/nft-cli/blob/v0.0.11/dist/commands/mint-multiple/index.ts)_
+
+## `nft mint-single`
+
+Mint NFT's with single metadata
+
+```
+USAGE
+  $ nft mint-single -m <value> -i <value> [-c <value>] [-s <value>]
+
+FLAGS
+  -c, --config=<value>    [default: /Users/tailorweb./Lab/xact/nft-cli/config.json] Path of your config file
+  -i, --image=<value>     (required) Path of your image file
+  -m, --metadata=<value>  (required) Path of your json metadata file
+  -s, --supply=<value>    [default: 1] Amount of supply
+
+DESCRIPTION
+  Mint NFT's with single metadata
+
+EXAMPLES
+  $ nft mint single -c sample.config.json -m ~/Downloads/nft/metadata.json -i ~/Downloads/nft/image.png -s 1500
+        Checking your configuration...
+        Checking if your paths...
+        Reading the content of your file...
+        Running minting...
+        ...
+```
+
+_See code: [dist/commands/mint-single/index.ts](https://github.com/git@github.com:Xact-Team/nft-cli.git/nft-cli/blob/v0.0.11/dist/commands/mint-single/index.ts)_
 <!-- commandsstop -->
