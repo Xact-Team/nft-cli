@@ -70,7 +70,7 @@ export const mint = async (
   const customRoyaltyFee = nftContent.metadata.customRoyaltyFee ?? null;
   const customProperties =
     nftContent.metadata.customProperties ??
-    configuration.metadata!.customProperties ??
+      (configuration.metadata && configuration.metadata!.customProperties) ??
     null;
 
   const media = nftContent.media;
