@@ -871,10 +871,10 @@
   resolved "https://registry.npmjs.org/@ungap/promise-all-settled/-/promise-all-settled-1.1.2.tgz"
   integrity sha512-sL/cEvJWAnClXw0wHk85/2L0G6Sj8UB0Ctc1TEMbKSsmpRosqhwj9gWgFRZSrBr2f9tiXISwNhCPmlfqUqyb9Q==
 
-"@xact-wallet-sdk/nft@^1.1.4":
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/@xact-wallet-sdk/nft/-/nft-1.1.4.tgz#042977772d8a5e8cb3a3a706a2e700c1d0861368"
-  integrity sha512-W2LSdDZsPxVxb2Qdpb2fUbDERqIIyV6Obsi8XcwO73npse5EWIli1NapCe1y2mOJPjqsKGY9XVAPlrEWMfxmtw==
+"@xact-wallet-sdk/nft@^1.1.7":
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/@xact-wallet-sdk/nft/-/nft-1.1.7.tgz#fbdfd7581482e3351afb0cabaaff0369ca0ae8ae"
+  integrity sha512-PsS6PQn3s8AWRRe3pCX6iVCZ6zzQujGq6Ii866ACURGhKMKQZY39Ysc59pfM1sTE+dfhqBJCmITDzGgD3eWigw==
   dependencies:
     "@hashgraph/sdk" "^2.6.0"
     axios "^0.24.0"
